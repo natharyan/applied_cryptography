@@ -14,7 +14,7 @@ def int_to_bin(n:int,pad=7):
 
 def bin_to_int(bin:list):
         sum = 0
-        for index,i in enumerate(bin):
+        for index,i in enumerate(bin[::-1]):
             sum += i*pow(2,index)
         return sum
 
@@ -27,11 +27,9 @@ def string_to_bin(m:str,pad):
     return result
 
 def bin_to_string(m:list,pad=7):
-    temp_c = 0
     string = ''
-    for i in range(1,len(m)//pad+1):
-        temp_intl = bin_to_int(m[temp_c:temp_c + pad])
-        temp_c = temp_c + pad
+    for i in range(0,len(m),pad):
+        temp_intl = bin_to_int(m[i:i + pad])
         char = chr(temp_intl)
         string += char
 
@@ -60,11 +58,8 @@ if __name__ == "__main__":
     key = gen_rand(pow(128,len(message)-1),len(m_bin))
     print(f"key: {key}")
     encrypted = encrypt(m_bin,key)
-    print(f"encrypted_bin: {encrypted}")
     ciphertext = bin_to_string(encrypted,pad)
-    print(f"ciphertext: {ciphertext}, length: {len(ciphertext)}")
-    print(f"key: {key}")
+    print(f"ciphertext: {ciphertext}")
     decrypted = encrypt(encrypted,key)
-    print(f"decrypted_bin: {decrypted}")
     decrypted_message = bin_to_string(decrypted,pad)
     print(f"descrypted message: {decrypted_message}")
