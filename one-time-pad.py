@@ -1,3 +1,12 @@
+"""
+a = key
+b = message -> message-> characters. Each character -> int by ord(char)
+a xor b xor a = b
+key xor m
+"""
+
+# Note: this is not timing side channel secure
+
 import random
 def gen_rand(range,pad):
     key = random.randint(1,range)
@@ -52,7 +61,6 @@ if __name__ == "__main__":
     pad = 7
     # pad for each character
     m_bin = string_to_bin(message,pad)
-    print(f"m_bin: {m_bin}")
     # one pad <=> 7 bits <=> max int 128
     # pad for whole key
     key = gen_rand(pow(128,len(message)-1),len(m_bin))
@@ -60,6 +68,6 @@ if __name__ == "__main__":
     encrypted = encrypt(m_bin,key)
     ciphertext = bin_to_string(encrypted,pad)
     print(f"ciphertext: {ciphertext}")
-    decrypted = encrypt(encrypted,key)
+    decrypted = decrypt(encrypted,key)
     decrypted_message = bin_to_string(decrypted,pad)
-    print(f"descrypted message: {decrypted_message}")
+    print(f"decrypted message: {decrypted_message}")
